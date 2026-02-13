@@ -247,6 +247,7 @@ export const Member: React.FC = () => {
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         title={editingMember ? '编辑成员' : '添加成员'}
+        size="lg"
         footer={
           <div className="flex gap-3 justify-end">
             <Button variant="flat" onClick={() => setModalOpen(false)}>

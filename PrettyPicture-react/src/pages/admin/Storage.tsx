@@ -243,34 +243,31 @@ export const Storage: React.FC = () => {
           }
         />
       ) : (
-        <div className="grid gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {storages.map((storage) => (
             <Card key={storage.id} className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-foreground">{storage.name}</h3>
-                    <p className="text-sm text-foreground/60">
-                      {storageTypes[storage.type] || storage.type}
-                      {' · '}
-                      {storage.imgCount || 0} 张图片
-                      {' · '}
-                      {formatSize(storage.imgSize || 0)}
-                    </p>
-                  </div>
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                  </svg>
                 </div>
-                <div className="flex gap-2">
-                  <Button variant="ghost" size="sm" onClick={() => openModal(storage)}>
-                    编辑
-                  </Button>
-                  <Button variant="ghost" size="sm" color="danger" onClick={() => handleDelete(storage)}>
-                    删除
-                  </Button>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-medium text-foreground truncate">{storage.name}</h3>
+                  <p className="text-sm text-foreground/60 mt-1">
+                    {storageTypes[storage.type] || storage.type}
+                  </p>
+                  <p className="text-sm text-foreground/60">
+                    {storage.imgCount || 0} 张图片 · {formatSize(storage.imgSize || 0)}
+                  </p>
+                  <div className="flex gap-2 mt-3">
+                    <Button variant="ghost" size="sm" onClick={() => openModal(storage)}>
+                      编辑
+                    </Button>
+                    <Button variant="ghost" size="sm" color="danger" onClick={() => handleDelete(storage)}>
+                      删除
+                    </Button>
+                  </div>
                 </div>
               </div>
             </Card>

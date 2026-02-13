@@ -473,6 +473,7 @@ export const Gallery: React.FC = () => {
                         onClick={() => handleImageClick(item)}
                         onCopy={batchMode ? undefined : () => { handleCopy(item.url); }}
                         onDelete={batchMode ? undefined : (canDelete ? () => { handleDelete(item.id); } : undefined)}
+                        useThumbnail
                       />
                     </div>
                   ))}

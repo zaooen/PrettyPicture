@@ -6,6 +6,7 @@ interface ImageCardProps {
   onClick: () => void;
   onCopy?: () => void;
   onDelete?: () => void;
+  useThumbnail?: boolean;
 }
 
 export const ImageCard: React.FC<ImageCardProps> = ({
@@ -13,9 +14,30 @@ export const ImageCard: React.FC<ImageCardProps> = ({
   onClick,
   onCopy,
   onDelete,
+  useThumbnail = false,
 }) => {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
+
+  // 生成略缩图 URL（限制最大宽度为 400px）
+  const getImageUrl = () => {
+    if (!useThumbnail) return image.url;
+    // 如果图片宽度大于 400，使用较小的尺寸
+    // 这里可以根据实际的图片服务支持的参数来调整
+    // 对于本地存储，直接返回原图
+    return image.url;
+  };
+
+  // 计算显示的宽高比，略缩图模式下限制最大高度
+  const getAspectRatio = () => {
+    if (!image.width || !image.height) return 'auto';
+    const ratio = image.width / image.height;
+    // 略缩图模式下，限制过长的图片
+    if (useThumbnail && ratio < 0.5) {
+      return '1/2'; // 最大高度为宽度的 2 倍
+    }
+    return `${image.width}/${image.height}`;
+  };
 
   return (
     <div
@@ -37,10 +59,10 @@ export const ImageCard: React.FC<ImageCardProps> = ({
           </div>
         ) : (
           <img
-            src={image.url}
+            src={getImageUrl()}
             alt={image.name}
             className={`w-full object-cover transition-opacity ${loaded ? 'opacity-100' : 'opacity-0'}`}
-            style={{ aspectRatio: image.width && image.height ? `${image.width}/${image.height}` : 'auto' }}
+            style={{ aspectRatio: getAspectRatio() }}
             loading="lazy"
             onLoad={() => setLoaded(true)}
             onError={() => setError(true)}

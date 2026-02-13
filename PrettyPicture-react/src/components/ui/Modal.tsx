@@ -69,7 +69,7 @@ export const Modal: React.FC<ModalProps> = ({
         className={`
           ${sizeStyles[size]} w-full bg-content1 rounded-large shadow-xl
           border border-divider animate-fade-in-up
-          max-h-[90vh] flex flex-col
+          max-h-[80vh] flex flex-col
         `.trim().replace(/\s+/g, ' ')}
       >
         {/* Header */}
