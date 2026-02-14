@@ -92,6 +92,29 @@ cp -r dist/* ../public/
 
 3. 确保 `runtime/` 目录可写
 
+4. 配置 Rewrite 规则为：thinkphp
+####  \[ Apache \]
+
+~~~
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks -Multiviews
+  RewriteEngine On
+
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+</IfModule>
+~~~
+####  \[ Nginx\]
+
+~~~
+location / { 
+   if (!-e $request_filename) {
+   		rewrite  ^(.*)$  /index.php?s=/$1  last;
+    }
+}
+~~~
+
 ## 🔌 API 使用
 
 ### 上传图片
